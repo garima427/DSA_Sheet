@@ -1,0 +1,13 @@
+int climbStairs(int totalSteps){
+    int waysTwoStepsBefore = 1;  
+    int waysOneStepBefore = 1;  //similar to fibonacci
+    int currentWays;
+
+    for(int step = 2; step <= totalSteps; step++){
+        currentWays = waysOneStepBefore + waysTwoStepsBefore;
+        waysTwoStepsBefore = waysOneStepBefore;
+        waysOneStepBefore = currentWays;
+    }
+
+    return waysOneStepBefore;
+}
