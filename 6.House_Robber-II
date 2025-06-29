@@ -1,0 +1,42 @@
+class Solution {
+public:
+    int max_Sum(vector<int>& nums,int n){
+        if(n==1) return nums[0];
+        if(n==2) return max(nums[1],nums[0]);
+
+        int prev2 = nums[0];
+        int prev = max(nums[1],nums[0]);
+        int curr;
+
+        for(int i=2;i<n;i++){
+            int pick = nums[i]+prev2;
+            int not_pick = prev;
+            curr = max(pick,not_pick);
+
+            prev2 = prev;
+            prev = curr;
+        }
+        return prev;
+    }
+    int rob(vector<int>& nums) {
+        int n = nums.size();
+
+        if(n==1) return nums[0];
+        if(n==2) return max(nums[1],nums[0]);
+
+        vector<int> temp1,temp2;
+
+        for(int i=0;i<n;i++){
+            if(i!=0)
+                temp1.push_back(nums[i]);
+            if(i!=n-1)
+                temp2.push_back(nums[i]);
+        }
+
+        int max_temp1 = max_Sum(temp1,temp1.size());
+        int max_temp2 = max_Sum(temp2,temp2.size());
+        int max_Money = max(max_temp1,max_temp2);
+
+        return max_Money;
+    }
+};
