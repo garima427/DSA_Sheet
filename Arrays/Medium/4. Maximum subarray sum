@@ -1,0 +1,11 @@
+int maximum_Sum(vector<int> arr){
+  int maxm_sum = INT_MIN;
+  int sum;
+  for(auto it:arr){
+    sum+=it;
+    maxm_sum = max(maxm_sum,sum);
+    if(sum<0) 
+      sum=0;
+  }
+  return maxm_sum;
+}
