@@ -1,0 +1,12 @@
+vector<int> leaders(vector<int> arr){
+    int n = arr.size();
+    vector<int> leader;
+    int greatestEle = INT_MIN;
+    for(int i=n-1;i>=0;i++){
+        if(arr[i]>greatestEle){
+            leader.push_back(arr[i]);
+            greatestEle = arr[i];
+        }
+    }
+    return leader;
+}
