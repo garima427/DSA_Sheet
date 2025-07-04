@@ -1,14 +1,13 @@
 void rearrange(vector<int> &arr){
     int n = arr.size();
-    vector<int> pos,neg;
-    
-    for(auto it: arr){
-      if(it>0) pos.push_back(it);
-      else neg.push_back(it);
-    }
-    
-    for(int i=0;i<n/2;i++){
-        arr[2*i]=pos[i];
-        arr[2*i+1]=neg[i];
+    int pointer = 0;
+    int neg_idx = 1;
+
+    for(int i=0;i<n;i++){
+        while(pointer<n && arr[pointer]>0) pointer++;
+        if(neg_idx<n && pointer<n && arr[pointer]<0 && arr[neg_idx]>0){
+            swap(arr[neg_idx],arr[pointer++]);
+            neg_idx+=2;
+        }
     }
 }
