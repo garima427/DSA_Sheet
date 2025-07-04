@@ -1,0 +1,26 @@
+vector<int> maximum_Sum(vector<int> arr){
+  int n = arr.size();
+  int start = 0,start_idx = -1, end_idx = -1;
+  int maxm_sum = INT_MIN;
+  int sum=0;
+  
+  for(int i=0;i<n;i++){
+      if(sum==0){
+          start = i;
+      }
+      
+      sum+=arr[i];
+      
+      if(sum>maxm_sum){
+          maxm_sum = sum;
+          start_idx = start;
+          end_idx = i;
+      }
+      if(sum<0) 
+          sum=0;
+  }
+  int j=0;
+  for(int i=start_idx;i<=end_idx;i++){
+      res[j++]=arr[i];
+  }
+}
