@@ -1,0 +1,25 @@
+int longestSequence(vector<int> nums){
+  int n = nums.size();
+  int longestSeq = 0;
+  int curr_length;
+  unordered_set<int> map;
+
+  for(int i=0;i<n;i++){
+    map.insert(nums[i]);
+  }
+
+  for(auto it:nums){
+    if(!map.count(it-1)){
+      curr_length = 1;
+      int x = it;
+
+      while(map.count(x+1)){
+        curr_length++;
+        x+=1;
+      }
+
+      longestSeq = max(longestSeq,curr_length);
+    }
+  }
+return longestSeq;
+}
