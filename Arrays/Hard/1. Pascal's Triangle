@@ -1,0 +1,38 @@
+//1. Given r and c, find the element at the position
+
+int PascalTriangle(int row, int col){
+  int n = row-1;
+  int r = col-1;
+  int res = 1;
+
+  for(int i=0;i<r;i++){
+    res*= (n-i);
+    res/=(i+1);
+  }
+  return res;
+}
+
+2. Given row number, generate that row
+
+void generateRow(int row){
+  int ele = 1;
+  cout<<ele<<" ";
+  for(int col=1; col<row; col++){
+    ele=ele*(row-col)/col;
+    cout<<ele<<" ";
+  }
+  cout<<endl;
+}
+
+3. Generate the pascal triangle, given N
+
+void pascalTriangle(int n){
+  for(int i=1;i<=n;i++){
+    generateRow(i);
+  }
+}
+
+
+
+  
+  
