@@ -10,4 +10,7 @@ void mergeArrays(int arr1[], int n, int arr2[], int m){
       break;
     }
   }
+
+  sort(arr1,arr1+n);
+  sort(arr2,arr2+m);
 }
