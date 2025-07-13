@@ -1,0 +1,23 @@
+vector<int> findMisingRepeatingNumbers(int arr[],int n){
+  int R = -1, M = -1;
+  int S = n*(n+1)/2;
+  int S2 = n*(n+1)*(2*n+1)/6;
+  int sum = 0, sqSum = 0;
+  
+  for(int i=0; i<n; i++){
+    sum+=arr[i];
+    sqSum+=(arr[i]*arr[i]);
+  }
+
+  int diff1 = sum - S;      //sum = S-M+R => sum-S = R-M
+  int diff2 = sqSum - S2;   //sqSum = S2+R^2-M^2 =>  sqSum - S2 = R2 - M2 
+                         
+  int RminusM = diff1;      // diff2 = (R+M)(R-M)  =>  R+M = diff2/R-M
+  int RplusM = diff2/diff1;
+
+   R = (RminusM+RplusM)/2;
+   M = R - diff1;
+
+  return {R,M};
+  }
+  
