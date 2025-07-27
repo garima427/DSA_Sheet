@@ -1,0 +1,21 @@
+Node* insert(Node* head, int k, int val){
+  Node* temp = new Node(val,nullptr);
+  if(k==1){
+    temp->next = head;
+    return temp;
+  }
+  
+    int cnt = 1;
+    Node* curr = head;
+    
+    while(curr){
+      cnt++;
+      if(cnt==k-1){
+        temp->next = curr->next;
+        curr->next = temp;
+        break;
+      }
+      curr = curr->next;
+    }
+  return head;
+}
