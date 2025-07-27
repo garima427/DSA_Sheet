@@ -1,0 +1,21 @@
+Node* delete(Node* head, int k){
+  if(k==1){
+    Node* toDelete = head;
+    head = head->next;
+    delete toDelete;
+    return head;
+  }
+    int cnt = 1;
+    Node* temp = head;
+    while(temp && temp->next){
+      if(cnt==k-1){
+        Node* toDelete = temp->next;
+        temp->next = temp->next->next;
+        delete toDelete;
+        break;
+      }
+      cnt++;
+      temp = temp->next;
+    }
+  return head;
+}
