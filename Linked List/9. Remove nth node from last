@@ -1,0 +1,25 @@
+Node* deleteNode(Node* head, int n){
+  Node* temp = head;
+  int cnt = 0;
+  while(temp){
+    cnt++;
+    temp = temp->next;
+  }
+
+  if(cnt == n){
+    Node* newHead = head->next;
+    delete head;
+    return newHead;
+  }
+  
+  int node = cnt-n;
+  temp = head;
+  for(int i=1; i<node; i++){
+    temp = temp->next;
+  }
+    Node* toDelete = temp->next;
+    temp->next = toDelete->next;
+    delete toDelete;
+    t
+  return head;
+}
