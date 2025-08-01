@@ -1,0 +1,26 @@
+Node* segregate(Node* head){
+  Node* oddHead = new Node(-1,nullptr);
+  Node* evenHead = new Node(-1,nullptr);
+  Node* oddTail = oddHead;
+  Node* evenTail = evenHead;
+  
+  Node* temp = head;
+  while(temp){
+    if(temp->data%2){
+      oddTail->next = temp;
+      oddTail = temp;
+    }
+    else{
+       evenTail->next = temp;
+       evenTail = temp;
+    }
+    temp = temp->next;
+  }
+
+  evenTail->next = nullptr;
+  oddTail->next = evenHead->next;
+  oddHead = oddHead->next;
+  return oddHead;
+}
+
+ 
