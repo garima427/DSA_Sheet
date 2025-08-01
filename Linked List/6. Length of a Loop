@@ -1,20 +1,18 @@
 int loopLength(Node* head){
   Node* slow = head;
   Node* fast = head;
-  int cnt = 0;
   while(fast && fast->next){
     slow = slow->next;
     fast = fast->next->next;
     if(slow==fast){
-      slow = head;
-      cnt = 1;
-      while(slow!=fast){
+      Node* temp= slow->next;
+      int cnt = 1;
+      while(temp!=slow){
         cnt++;
-        slow = slow->next;
-        fast = fast->next;
+        temp = temp->next;
       }
       return cnt;
     }
   }
-  return cnt;
+  return 0;
 }
