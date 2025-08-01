@@ -1,0 +1,27 @@
+bool isPalindrome(Node* head){
+  if(!head || !head->next)
+    return true;
+
+  bool palindrome = true;
+  Node* slow = head;
+  Node* fast = head;
+  while(fast && fast->next){
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+  
+  Node* first = head;
+  Node* second = reverseLL(slow);
+  Node* tempHead = second;
+  while(second){
+    if(first->data != second->data){
+      palindrome = false;
+      break;
+    }
+    first = first->next;
+    second = second->next;
+  }
+  
+  reverseLL(tempHead);
+  return palindrome; 
+}
