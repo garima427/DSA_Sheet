@@ -1,0 +1,19 @@
+Node* deleteMiddleNode(Node* head){
+  if(!head || !head->next)
+    return NUll;
+    
+  Node* slow = head;
+  Node* fast = head;
+  fast = fast->next->next;
+  
+  while(fast && fast->next){
+    slow = slow->next;
+    fast = fast->next->next;
+  }
+
+  Node* toDelete = slow->next;
+  slow->next = toDelete->next;
+  delete toDelete;
+
+  return head;
+}
