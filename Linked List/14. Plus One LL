@@ -1,0 +1,24 @@
+Node* plusOne(Node* head){
+  Node* revHead = reverse(head);
+  Node* temp = revHead;
+  int carry = 1;
+  while(temp){
+    temp->data = temp->data+carry;
+    if(temp->data < 10){
+      carry = 0;
+      break;
+    }
+    else{
+      temp->data = 0;
+      carry = 1;
+    }
+    temp = temp->next;
+  }
+  if(carry){
+    Node* newHead= new Node(1);
+    newHead->next = reverse(revHead);
+    return newHead;
+  }
+  head = reverse(revHead);
+  return head;
+}
