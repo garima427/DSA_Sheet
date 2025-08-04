@@ -1,0 +1,10 @@
+Node* intersectionNode(Node* list1, Node* list2){
+  Node* t1 = list1, t2 = list2;
+  Node* head1 = list1, head2 = list2;
+
+  while(t1!=t2){
+    t1 = t1? t1->next : head2;
+    t2 = t2? t2->next : head1;
+  }
+  return t1;
+}
