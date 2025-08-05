@@ -1,1 +1,54 @@
+Node* insertAtHead(Node* head, int val){
+  Node* newHead = new Node(val);
 
+  if(!head)
+    return newHead;
+
+  newHead->prev = nullptr;
+  newHead->next = head;
+  head->prev = newHead;
+  
+  return newHead;
+}
+Node* insertAtTail(Node* head, int val){
+  Node* newNode = new Node(val);
+
+  if(!head)
+    return newNode;
+
+  Node* temp = head;
+  while(temp->next){
+    temp = temp->next;
+  }
+
+  temp->next = newNode;
+  newNode->prev = temp;
+  newNode->next = nullptr;
+  return head;
+}
+
+Node* insert(Node* head, int val, int pos){
+  if(pos<=0)
+    return nullptr;
+  if(pos==1){
+    return insertAtHead(head,val);
+  }
+  Node* newNode = new Node(val);
+  Node* temp = head;
+  int cnt = 1;
+  while(temp && cnt<pos-1){
+    temp = temp->next;
+    cnt++;
+  }
+  if(!temp){
+     delete newNode;
+     return head;
+  }
+  Node* nextNode = temp->next;
+  newNode->next = nextNode;
+  newNode->prev = temp;
+  temp->next = newNode;
+
+  if(nextNode) nextNode->prev = newNode;
+  return head;
+}
