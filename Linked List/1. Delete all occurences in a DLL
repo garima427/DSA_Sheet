@@ -1,0 +1,27 @@
+Node* deleteOccurence(Node* head, int target){
+  Node* curr = head;
+  Node* back = nullptr;
+  Node* front;
+  while(curr){
+    if(curr->data == target){
+      Node* todelete = curr;
+      front = curr->next;
+      
+      if(back)
+        back->next = front;
+      else
+        head = front;
+  
+      if(front)
+      front->prev = back;
+      
+      delete todelete;
+      curr = front;
+    }
+    else{
+      back = curr;
+      curr = curr->next;
+    }
+  }
+  return head;
+}
