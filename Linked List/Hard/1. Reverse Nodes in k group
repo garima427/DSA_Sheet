@@ -1,0 +1,47 @@
+Node* reverseList(Node* head) {
+    Node* prev = nullptr;
+    Node* curr = head;
+    while (curr) {
+        Node* nextNode = curr->next;
+        curr->next = prev;
+        prev = curr;
+        curr = nextNode;
+    }
+    return prev;
+}
+
+Node* findKthNode(Node* head, int k){
+  k--;
+  Node* temp = head;
+  while(temp && k>0){
+    k--;
+    temp = temp->next;
+  }
+  return temp;
+}
+Node* reverse(Node* head, int k){
+ if(!head || !head->next || k<=1) return head;
+ 
+ Node* dummyHead = new Node(-1);
+ dummyHead->next = temp;
+
+ Node* prevLast = dummyHead;
+ Node* temp = head;
+
+  while(temp){
+   Node* kNode = findKthNode(head,k);
+   if(!kNode) 
+       break;
+
+   Node* nextGroupHead = kNode->next;
+   kNode->next = nullptr;
+   Node* newHead = reverseList(temp);
+   
+   prevLast->next = newHead; 
+   temp->next = nextGroupHead;
+   
+   prevLast = temp;
+   temp = nextGroupHead;
+  }
+ return dummyHead->next;
+}
