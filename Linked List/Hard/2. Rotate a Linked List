@@ -1,0 +1,22 @@
+
+Node* rotateList(Node* head, int k){
+    Node* temp = head;
+    int cnt = 1;
+    while(temp->next){
+      cnt++;
+      temp=temp->next;
+    }
+    temp->next = head;
+
+    k = k%cnt;
+    temp = head;
+    int len = cnt-k;
+    while(temp && len>1){
+      temp = temp->next;
+      len--;
+    }
+    Node* newHead = temp->next;
+    temp->next = nullptr;
+
+    return newHead;
+}
