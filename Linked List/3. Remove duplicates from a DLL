@@ -1,0 +1,20 @@
+Node* removeDuplicates(Node* head){
+    if(!head || !head->next)
+        return head;
+    
+    Node* tempHead = head;
+    Node* tail = tempHead;
+    Node* curr = head->next;
+    
+    while(curr){
+      if(curr->data! = tail->data){
+        tail->next = curr;
+        tail = curr;
+      }
+      curr = curr->next;
+    }
+    tail->next = nullptr;
+
+
+  return tempHead;
+}
