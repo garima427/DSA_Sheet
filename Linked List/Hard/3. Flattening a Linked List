@@ -1,0 +1,39 @@
+Node* mergeList(Node* head1, Node* head2){
+  if(!head1) return head2;
+    if(!head2) return head1;
+
+    Node* dummyHead = new Node(-1);
+    Node* tail = dummyHead;
+
+    Node* temp1 = head1;
+    Node* temp2 = head2;
+
+    while(temp1 && temp2) {
+        if(temp1->data < temp2->data) {
+            tail->child = temp1;
+            temp1 = temp1->child;
+        } else {
+            tail->child = temp2;
+            temp2 = temp2->child;
+        }
+        tail = tail->child;
+    }
+
+    if(temp1) tail->child = temp1;
+    if(temp2) tail->child = temp2;
+
+    return dummyHead->child;
+}
+
+
+Node* flattenList(Node* head){
+  if(!head || !head->next){
+    return head;
+  }
+  
+  head->next = flattenList(head->next);
+  head = mergeList(head, head->next);
+  head->next = nullptr;
+  
+  return head;
+}
