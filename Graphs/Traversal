@@ -1,0 +1,36 @@
+vector<int> bfs(int v, int sNode, vector<vector<int>> adj){
+  vector<int> bfs;
+  vector<int> vis(v+1,0);
+  
+  queue<int> q;
+  q.push(sNode);
+  vis[sNode]=1;
+  while(!q.empty()){
+    int node = q.front();
+    bfs.push_back(node);
+    q.pop();
+    for(auto adjNode: adj[node]){
+      if(!vis[adjNode]){
+        q.push(adjNode);
+        vis[adjNode]=1;
+      }
+    }
+  }
+  return bfs;
+}
+
+void dfs(int sNode, vector<vector<int>> &adj, vector<int> &ans,vector<int> &vis){
+  vis[sNode]=1;
+  ans.push_back(sNode);
+  for(auto adjNode: adj[sNode]){
+    if(!vis[adjNode])
+      dfs(adjNode,adj,ans,vis);
+  }
+}
+
+vector<int> dfsTraversal(int v, int sNode, vector<vector<int>> &adj){
+  vector<int> ans;
+  vector<int> vis(v+1,0);
+  dfs(sNode,adj,ans,vis);
+  return ans;
+}
