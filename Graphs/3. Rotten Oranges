@@ -1,0 +1,47 @@
+
+int rottenOranges(vector<vector<int>> &oranges){
+  int n = oranges.size();
+  int m = oranges[0].size();
+
+  queue<pair<pair<int,int>,int>> q;
+  vector<vector<int>> vis(n,vector<int>(m,0));
+
+  int freshCount=0;
+  int time = 0;
+  
+  for(int i=0; i<n; i++){
+    for(int j=0; j<m; j++){
+      if(oranges[i][j]==2){
+        q.push({{i,j},0});
+        vis[i][j]=1;
+      }
+      if(oranges[i][j]==1){
+        freshCount++;
+      }
+    }
+  }
+  
+  int dr[]={0,-1,0,1};
+  int dc[]={-1,0,1,0};
+  int rottenCount = 0;
+  
+  while(!q.empty()){
+    int row = q.front().first.first;
+    int col = q.front().first.second;
+    int t = q.front().second;
+    q.pop();
+
+    time = max(time,t);
+    
+    for(int i=0; i<4; i++){
+      int nr = row+dr[i];
+      int nc = col+dc[i];
+      if(nr>=0 && nr<n && nc>=0 && nc<m && !vis[nr][nc] && oranges[nr][nc]==1){
+        vis[nr][nc]=1;
+        rottenCount++;
+        q.push({{nr,nc},t+1});
+      }
+    }
+  }
+  return freshCount==rottenCount?time:-1;
+}
