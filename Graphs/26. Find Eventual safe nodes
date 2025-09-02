@@ -1,0 +1,32 @@
+bool dfsCheck(int i, vector<vector<int>> &adj,vector<int> &vis,vector<int> &path,vector<int> &check){
+  vis[i]=1;
+  path[i]=1;
+
+  for(auto adjNode : adj[i]){
+    if(!vis[adjNode]){
+      if(dfsCheck(adjNode,adj,vis,path,check)){
+          check[i]=0;
+          return true;
+        }
+      }
+    else if(path[adjNode]){
+      check[i]=0;
+      return true;
+    }
+  }
+  path[i]=0;
+  check[i]=1;
+  return false;
+}
+vector<int> safeNodes(int n, vector<vector<int>> &adj){
+  vector<int> vis(n+1,0);
+  vector<int> path(n+1,0);
+  vector<int> check(n+1,0);
+  
+  for(int i=0; i<=n; i++){
+    if(!vis[i]){
+      dfsCheck(i,adj,vis,path,check);
+    }
+  }
+  return check;
+}
