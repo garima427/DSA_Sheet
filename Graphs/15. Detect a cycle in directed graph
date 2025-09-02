@@ -1,24 +1,25 @@
-bool dfsCheck(int i, vector<vector<int>> &adj,vector<pair<int,int>> &vis){
-  vis[i].first=1;
-  vis[i].second=1;
+bool dfsCheck(int i, vector<vector<int>> &adj,vector<int> &vis,vector<int> &path){
+  vis[i]=1;
+  path[i]=1;
 
   for(auto adjNode : adj[i]){
-    if(!vis[adjNode].first){
-      if(dfsCheck(adjNode,adj,vis))
+    if(!vis[adjNode]){
+      if(dfsCheck(adjNode,adj,vis,path))
           return true;
       }
-    else if(vis[adjNode].second){
+    else if(path[adjNode]){
       return true;
     }
   }
-  vis[i].second=0;
+  path[i]=0;
   return false;
 }
 bool isCycle(int n, vector<vector<int>> &adj){
-  vector<pair<int,int>> vis(n+1,{0,0});
+  vector<int> vis(n+1,0);
+  vector<int> path(n+1,0);
   for(int i=0; i<=n; i++){
-    if(!vis[i].first){
-      if(dfsCheck(i,adj,vis))
+    if(!vis[i]){
+      if(dfsCheck(i,adj,vis,path))
           return true;
     }
   }
