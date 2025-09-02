@@ -1,0 +1,28 @@
+vector<int> kahnAlgo(int v, vector<vector<int>> &adj){
+  vector<int> inDegree(v,0);
+  vector<int> order;
+  
+  for(int i=0; i<v; i++){
+    for(auto adjNode : adj[i])
+      inDegree[adjNode]++;
+  }
+  
+  queue<int> q;
+  for(int i=0; i<v; i++){
+    if(inDegree[i]==0)
+      q.push(i);
+  }
+  
+  while(!q.empty()){
+    int node = q.front();
+    order.push_back(node);
+    q.pop();
+
+    for(auto adjNode : adj[node]){
+      inDegree[adjNode]--;
+      if(inDegree[adjNode]==0)
+        q.push(adjNode);
+    }
+  }
+  return order;
+}
