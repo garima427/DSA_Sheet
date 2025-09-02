@@ -1,0 +1,26 @@
+bool dfsCheck(int i, vector<vector<int>> &adj,vector<pair<int,int>> &vis){
+  vis[i].first=1;
+  vis[i].second=1;
+
+  for(auto adjNode : adj[i]){
+    if(!vis[adjNode].first){
+      if(dfsCheck(adjNode,adj,vis))
+          return true;
+      }
+    else if(vis[adjNode].second){
+      return true;
+    }
+  }
+  vis[i].second=0;
+  return false;
+}
+bool isCycle(int n, vector<vector<int>> &adj){
+  vector<pair<int,int>> vis(n+1,{0,0});
+  for(int i=0; i<=n; i++){
+    if(!vis[i].first){
+      if(dfsCheck(i,adj,vis))
+          return true;
+    }
+  }
+  return false;
+}
