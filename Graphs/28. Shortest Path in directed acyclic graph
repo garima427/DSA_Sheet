@@ -1,0 +1,31 @@
+void dfs(int node, vector<vector<pair<int,int>>> &adj,vector<int> &vis, stack<int> &st){
+  vis[node]=1;
+  for(auto adjNode : adj[node]){
+    if(!vis[adjNode.first])
+      dfs(adjNode.first,adj,vis,st);
+  }
+  st.push(node);
+}
+vector<int> shortestPath(int v,int src,vector<vector<pair<int,int>>> &adj){
+  vector<int> dist(v,INT_MAX);
+  stack<int> st;
+  vector<int> vis(v,0);
+  for(int i=0; i<v; i++){
+    if(!vis[i])
+      dfs(i,adj,vis,st);
+  }
+  
+  dist[src]=0;
+  
+  while(!st.empty()){
+    int node = st.top();
+    st.pop();
+    for(auto adjNode:adj[node]){
+      int curr_node = adjNode.first;
+      int wt = adjNode.second;
+      if(dist[node]!= INT_MAX && wt+dist[node]<dist[adjNode.first])
+        dist[adjNode.first] = wt+dist[node];
+    }
+  }
+  return dist;
+}
