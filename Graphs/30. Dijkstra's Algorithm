@@ -1,0 +1,23 @@
+vector<int> shortestPath(int v,vector<vector<pair<int,int>>> &adj, int src){
+  vector<int> dist(v,INT_MAX);
+  priority_queue<pair<int,int>, vector<pair<int,int>>, greater<pair<int,int>>> pq;
+  dist[src]=0;
+  pq.push({0,src});
+  
+  while(!pq.empty()){
+    int dis = pq.top().first;
+    int node = pq.top().second;
+    pq.pop();
+    
+    for(auto adjNode:adj[node]){
+      int nextNode = adjNode.first;   
+      int wt = adjNode.second;        
+  
+      if (dis + wt < dist[nextNode]) {
+          dist[nextNode] = dis + wt;
+          pq.push({dist[nextNode], nextNode});
+      }
+    }
+
+  return dist;
+}
