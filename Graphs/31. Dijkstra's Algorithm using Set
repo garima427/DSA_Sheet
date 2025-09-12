@@ -1,0 +1,29 @@
+vector<int> shortestPath(int v, vector<vector<pair<int,int>>> &adj, int src) {
+    vector<int> dist(v, INT_MAX);
+    set<pair<int,int>> st;
+
+    dist[src] = 0;
+    st.insert({0, src}); // {distance, node}
+
+    while (!st.empty()) {
+        auto it = *(st.begin());
+        int dis = it.first;
+        int node = it.second;
+        st.erase(it);
+
+        for (auto adjNode : adj[node]) {
+            int nextNode = adjNode.first;   // neighbor
+            int wt = adjNode.second;        // weight
+
+            if (dis + wt < dist[nextNode]) {
+                dist[nextNode] = dis + wt;
+                if(dist[nextNode]!=INT_MAX){
+                  st.erase({dist[nextNode],nextNode});
+                }
+                st.insert({dist[nextNode], nextNode});
+            }
+        }
+    }
+
+    return dist;
+}
