@@ -1,0 +1,76 @@
+class DisjointSet {
+    vector<int> rank;
+    vector<int> parent;
+
+public:
+    DisjointSet(int n) {
+        rank.resize(n + 1, 0);
+        parent.resize(n + 1);
+        for (int i = 0; i <= n; i++) {
+            parent[i] = i;
+        }
+    }
+
+    int findUPar(int node) {
+        if (node == parent[node]) return node;
+        return parent[node] = findUPar(parent[node]);
+    }
+
+    void Union(int u, int v) {
+        int ulp_u = findUPar(u);
+        int ulp_v = findUPar(v);
+        if (ulp_u == ulp_v) return;
+
+        if (rank[ulp_u] < rank[ulp_v]) {
+            parent[ulp_u] = ulp_v;
+        }
+        else if (rank[ulp_u] > rank[ulp_v]) {
+            parent[ulp_v] = ulp_u;
+        }
+        else {
+            parent[ulp_v] = ulp_u;
+            rank[ulp_u]++;
+        }
+    }
+};
+
+vector<int> numOfIslands(int n, int m, vector<vector<int>> &operations) {
+    int k = operations.size();
+    DisjointSet ds(n * m);
+    int cnt = 0;
+    vector<vector<int>> vis(n, vector<int>(m, 0));
+    vector<int> ans;
+
+    for (auto &it : operations) {
+        int r = it[0];
+        int c = it[1];
+
+        if (vis[r][c]) {
+            ans.push_back(cnt);
+            continue;
+        }
+
+        vis[r][c] = 1;
+        cnt++;
+
+        int dr[] = {-1, 0, 1, 0};
+        int dc[] = {0, -1, 0, 1};
+
+        for (int i = 0; i < 4; i++) {
+            int nr = r + dr[i];
+            int nc = c + dc[i];
+
+            if (nr >= 0 && nr < n && nc >= 0 && nc < m && vis[nr][nc]) {
+                int nodeNo = r * m + c;
+                int adjNode = nr * m + nc;
+
+                if (ds.findUPar(nodeNo) != ds.findUPar(adjNode)) {
+                    cnt--;
+                    ds.Union(nodeNo, adjNode);
+                }
+            }
+        }
+        ans.push_back(cnt);
+    }
+    return ans;
+}
