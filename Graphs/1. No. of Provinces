@@ -17,3 +17,70 @@ int numberOfProvinces(int n,vector<vector<int>> &adj){
   }
   return provinces;
 }
+
+
+
+class DisjointSet{
+  vector<int> rank;
+  vector<int> parent;
+  DisjointSet(int n){
+    rank.resize(n+1,0);
+    parent.resize(n+1);
+    for(int i=0; i<n; i++)
+      parent[i] = i;
+    }
+
+    int findUPar(int node){
+      if(node == parent[node])
+        return node;
+      return parent[node] = findUPar(parent[node]);
+    }
+
+    void Union(int u, int v){
+      int ulp_u = findUPar(u);
+      int ulp_v = findUPar(v);
+      if(ulp_u == ulp_v)
+        return;
+      if(rank[ulp_u]<rank[ulp_v]){
+        parent[ulp_u] = ulp_v;
+      }
+      else if(rank[ulp_u]>rank[ulp_v]){
+        parent[ulp_v] = ulp_u;
+      }
+      else{
+        parent[ulp_v] = ulp_u;
+        rank[ulp_u]++;
+      }
+    }
+}
+
+int findCircleNum(vector<vector<int>>& isConnected){
+  int v = isConnected.size();
+  int provinces = 0;
+  DisjointSet ds(v);
+  for(int i=0; i<v; i++){
+    for(int j=0; j<v; j++){
+      if(isConnected[i][j]){
+        if(ds.findUPar(i)!=ds.findUPar(j)){
+            ds.Union(i,j);
+        }
+      }
+    }
+  }
+
+  for(int i=0; i<v; i++){
+    if(parent[i]==i)
+        provinces++;
+  }
+
+  return provinces;
+}
+
+
+
+
+
+
+
+
+
