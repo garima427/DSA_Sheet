@@ -1,46 +1,56 @@
-vector<vector<string>> shortestSeq(vector<string> wordList, string beginWord, string endWord){
-  vector<vector<string>> ans;
-  vector<string> onLevel;
-  onLevel.push_back(beginWord);
-  
-  unordered_set st(wordList.begin(),wordList.end());
-  queue<vector<string>> q;
-  q.push({beginWord});
-  int level = 0;
-  
-  while(!q.empty()){
-    vector<string> seq = q.front();
-    q.pop();
-    string word = seq.back();
+class Solution {
+public:
+    vector<vector<string>> findLadders(string beginWord, string endWord, vector<string>& wordList) {
+        unordered_set st(wordList.begin(),wordList.end());
+        vector<vector<string>> ans;
 
-    if(seq.size()>level){
-      level++;
-       for(auto it: onLevel){
-          onLevel.erase(it);
-       }
-    }
-    
-    if(word==endWord){
-      if(ans.empty())
-        ans.push_back(seq);
-      else if(ans[0].size()==seq.size())
-        ans.push_back(seq);
-    } 
-    
-    for(int i=0; i<word.size(); i++){
-      char og = word[i];
-      for(char ch = 'a'; ch<='z'; ch++){
-        word[i]=ch;
-        if(st.count(word)){
-          seq.push_back(word);
-          q.push(seq);
-          onLevel.push_back(word);
-          seq.pop_back();
+        if(!st.count(endWord))
+            return ans;
+        
+        queue<vector<string>> q;
+        q.push({beginWord});
+
+        vector<string> usedOnLevel;
+        int level = 1;
+        int shortest = INT_MAX;
+
+        while(!q.empty()){
+            auto seq = q.front();
+            q.pop();
+
+            if(seq.size()>level){
+                for(auto it:usedOnLevel)
+                    st.erase(it);
+                usedOnLevel.clear();
+                level = seq.size();
+                if (level > shortest) break; 
+            }
+
+
+            string word = seq.back();
+
+            if(word==endWord){
+                if(ans.empty() || seq.size()==shortest){
+                    ans.push_back(seq);
+                    shortest = seq.size();
+                }
+                continue;
+            }
+
+            for(int i=0; i<word.size(); i++){
+                char og = word[i];
+                for(char ch = 'a'; ch<='z'; ch++){
+                    word[i]=ch;
+                    if(st.count(word)){
+                        seq.push_back(word);
+                        q.push(seq);
+                        usedOnLevel.push_back(word);
+                        seq.pop_back();
+                    }
+                }
+                word[i] = og;
+            }
         }
-        word[i]=og;
-      }
+        return ans;
     }
-  
-  }
-  return ans;
-}
+};
