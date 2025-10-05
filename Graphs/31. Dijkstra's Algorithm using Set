@@ -16,10 +16,10 @@ vector<int> shortestPath(int v, vector<vector<pair<int,int>>> &adj, int src) {
             int wt = adjNode.second;        // weight
 
             if (dis + wt < dist[nextNode]) {
-                dist[nextNode] = dis + wt;
                 if(dist[nextNode]!=INT_MAX){
                   st.erase({dist[nextNode],nextNode});
                 }
+                dist[nextNode] = dis + wt;
                 st.insert({dist[nextNode], nextNode});
             }
         }
