@@ -2,14 +2,14 @@ class DisjointSet{
   vector<int> size;
   vector<int> parent;
   DisjointSet(int n){
-    rank.resize(n+1,1);
+    size.resize(n+1,1);
     parent.resize(n+1);
-    for(int i=0; i<n; i++)
+    for(int i=0; i<=n; i++)
       parent[i] = i;
 
-    void findUPar(int node){
+    int findUPar(int node){
       if(node == parent[node])
-        return;
+        return node;
       return parent[node] = findUPar(parent[node]);
     }
     void Union(int u, int v){
