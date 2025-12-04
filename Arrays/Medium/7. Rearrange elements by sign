@@ -1,13 +1,38 @@
 void rearrange(vector<int> &arr){
     int n = arr.size();
-    int pointer = 0;
+    int pos_idx = 0;
     int neg_idx = 1;
 
     for(int i=0;i<n;i++){
-        while(pointer<n && arr[pointer]>0) pointer++;
-        if(neg_idx<n && pointer<n && arr[pointer]<0 && arr[neg_idx]>0){
-            swap(arr[neg_idx],arr[pointer++]);
+        if(arr[i]<0){
+            ans[neg_idx]=arr[i];
             neg_idx+=2;
         }
+        else{
+            ans[pos_idx]=arr[i];
+            pos_idx+=2;
+        }
+    }
+    return ans;
+}
+
+
+// to remove extra space
+void rearrange(vector<int> &arr){
+    int n = arr.size();
+    int pos = 0;   // even index → positive
+    int neg = 1;   // odd index → negative
+
+    while (pos < n && neg < n) {
+
+        // if positive index contains positive, move
+        if (arr[pos] >= 0) pos += 2;
+
+        // if negative index contains negative, move
+        else if (arr[neg] < 0) neg += 2;
+
+        // wrong elements → swap
+        else swap(arr[pos], arr[neg]);
     }
 }
+
