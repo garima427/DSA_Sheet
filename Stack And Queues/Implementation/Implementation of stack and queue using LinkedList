@@ -1,0 +1,105 @@
+struct Node {
+    int val;
+    Node* next;
+
+    Node(int d) {
+        val = d;
+        next = NULL;
+    }
+};
+
+
+class LinkedListStack {
+    int sz;
+    Node* topNode;
+
+public:
+    LinkedListStack() {
+        topNode = NULL;
+        sz = 0;
+    }
+
+    void push(int x) {
+        Node* temp = new Node(x);
+
+        temp->next = topNode;
+        topNode = temp;
+        sz++;
+    }
+
+    void pop() {
+        if (topNode == NULL)
+            return;
+
+        Node* temp = topNode;
+        topNode = topNode->next;
+
+        delete temp;
+        sz--;
+    }
+
+    int top() {
+        if (topNode == NULL)
+            return -1;
+
+        return topNode->val;
+    }
+
+    int size() {
+        return sz;
+    }
+};
+
+
+class LinkedListQueue {
+    Node* start;
+    Node* end;
+    int sz;
+
+public:
+    LinkedListQueue() {
+        start = NULL;
+        end = NULL;
+        sz = 0;
+    }
+
+    void push(int x) {
+        Node* temp = new Node(x);
+
+        if (start == NULL) {
+            start = end = temp;
+        }
+        else {
+            end->next = temp;
+            end = temp;  // Important!
+        }
+
+        sz++;
+    }
+
+    void pop() {
+        if (start == NULL)
+            return;
+
+        Node* temp = start;
+        start = start->next;
+
+        delete temp;
+        sz--;
+
+        // Queue became empty
+        if (start == NULL)
+            end = NULL;
+    }
+
+    int front() {
+        if (start == NULL)
+            return -1;
+
+        return start->val;
+    }
+
+    int size() {
+        return sz;
+    }
+};
