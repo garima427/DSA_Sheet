@@ -31,11 +31,38 @@ class stackImplementation{
 }
 
 
-class queueImplementation{
-int size = 0, start = -1, end = -1;
-int q[10];
-queueImplementation(){
-    int size = 0, start = -1, end = -1;
-}
-
+class QueueImplemetation{
+    int size = 10;
+    int q[size];
+    int start = -1,end = -1;
+    int currsize = 0;
+    
+    void push(int x){
+        if(currsize==0){
+            start = end = 0;
+        }
+        else{
+            end = (end+1)%size;
+        }
+        q[end]=x;
+        currsize++;
+    }
+    void pop(){
+        if(currsize==0) return;
+        if(currsize==1){
+            start = end = -1;
+            return;
+        }
+        start = (start+1)%size;
+        currsize--;
+    }
+    int front(){
+        if(currsize==0){
+            return -1;
+        }
+        return q[start];
+    }
+    int size(){
+        return currsize;
+    }
 }
