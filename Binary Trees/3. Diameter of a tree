@@ -1,0 +1,42 @@
+#include <iostream>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int val){
+        data = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+int solve(Node* root,int &diameter){
+    if(!root)
+        return 0;
+    
+    int leftHeight  = solve(root->left,diameter);
+    int rightHeight = solve(root->right,diameter);
+
+    diameter = max(diameter,leftHeight+rightHeight);
+
+    return 1+max(leftHeight,rightHeight);
+
+
+}
+int diameter(Node* root){
+   int d = 0;
+   solve(root,d);
+   return d;
+}
+
+int main(){
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->right->left = new Node(4);
+    root->right->right = new Node(6);
+    root->right->left->left = new Node(5);
+    cout<<diameter(root);
+}
