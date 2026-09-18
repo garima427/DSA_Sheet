@@ -1,0 +1,11 @@
+bool isMirror(Node* left, Node* right){
+    if(!left || !right){
+        return (left==right);
+    }
+    return (left->data == right->data) && isMirror(left->left,right->right) && isMirror(left->right, right->left);
+}
+bool isSymmetric(Node* root){
+    if(!root)
+        return true;
+    return isMirror(root->left, root->right);
+}
