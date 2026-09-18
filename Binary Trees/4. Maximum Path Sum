@@ -1,0 +1,42 @@
+#include <iostream>
+#include <climits>
+using namespace std;
+
+struct Node{
+    int data;
+    Node* left;
+    Node* right;
+    Node(int val){
+        data = val;
+        left = nullptr;
+        right = nullptr;
+    }
+};
+
+int solve(Node* root,int &maxPath){
+    if(!root)
+        return 0;
+    
+    int leftMax  = max(0,solve(root->left,maxPath));
+    int rightMax = max(0,solve(root->right,maxPath));
+
+    maxPath = max(maxPath,root->data+leftMax+rightMax);
+
+    return root->data+max(leftMax,rightMax);
+}
+
+int maximumPath(Node* root){
+   int maxPath = INT_MIN;
+   solve(root,maxPath);
+   return maxPath;
+}
+
+int main(){
+    Node* root = new Node(1);
+    root->left = new Node(2);
+    root->right = new Node(3);
+    root->right->left = new Node(4);
+    root->right->right = new Node(6);
+    root->right->left->left = new Node(5);
+    cout<<maximumPath(root);
+}
