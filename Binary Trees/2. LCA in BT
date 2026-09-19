@@ -1,0 +1,19 @@
+Node* LCA(Node* root, Node* p, Node* q){
+    if(!root)
+        return root;
+    if(root==p || root ==q){
+        return root;
+    }
+
+    Node* left = LCA(root->left,p,q);
+    Node* right = LCA(root->right,p,q);
+
+    if(!left && !right)
+        return NULL;
+
+    if(left && right)
+        return root;
+        
+    if(!left || !right)
+        return left==NULL?right:left;
+}
