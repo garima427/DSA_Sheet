@@ -1,0 +1,26 @@
+Node* buildTree(vector<int>& postorder, vector<int>& inorder){
+    unordered_map<int,int> inMap;
+    for(int i=0; i<inorder.size(); i++){
+        inMap[inorder[i]] = i;
+    }
+    solvePost(preorder,0,0,inorder.size()-1,inMap);
+}
+
+Node* solvePost(vector<int>& postorder, int& postIndex,
+                int inStart, int inEnd,
+                unordered_map<int,int>& inMap){
+
+     if(inStart>inEnd)
+                return NULL;
+        
+        int root = postorder[postIndex];
+        postIndex--;
+        int pos = inMap[root];
+        Node* node = new Node(root);
+
+       
+        node->right = solvePost(postorder,postIndex, pos+1,inEnd ,inMap);
+         node->left = solvePost(postorder,postIndex, inStart, pos-1,inMap);
+
+        return node;
+}
