@@ -3,7 +3,8 @@ Node* buildTree(vector<int>& postorder, vector<int>& inorder){
     for(int i=0; i<inorder.size(); i++){
         inMap[inorder[i]] = i;
     }
-    solvePost(preorder,0,0,inorder.size()-1,inMap);
+    int postIndex = postorder.size()-1;
+    solvePost(postorder,postIndex,0,inorder.size()-1,inMap);
 }
 
 Node* solvePost(vector<int>& postorder, int& postIndex,
