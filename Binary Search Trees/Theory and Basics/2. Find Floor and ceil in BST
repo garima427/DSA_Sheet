@@ -1,0 +1,26 @@
+int floorBST(Node* root, int key){
+    if(!root)
+        return -1;
+    
+    if(root->data == key)
+        return key;
+    
+    if(root->data>key)
+        return floorBST(root->left,key);
+    
+    return max(root->data,floorBST(root->right,key));
+}
+
+int ceilBST(Node* root, int key){
+    if(!root)
+        return -1;
+    
+    if(root->data == key)
+        return key;
+    
+    if(root->data<key)
+        return ceilBST(root->right,key);
+
+    int leftCeil = ceilBST(root->left,key);
+    return leftCeil==-1?root->data:leftCeil;
+}
