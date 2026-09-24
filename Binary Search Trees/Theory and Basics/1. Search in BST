@@ -1,0 +1,13 @@
+Node* searchBST(Node* root, int key){
+    if(!root)
+        return NULL;
+
+    if(root->data == key){
+        return root;
+    }
+
+    if(key<root->data)
+        return searchBST(root->left,key);
+    
+    return searchBST(root->right,key);
+}
