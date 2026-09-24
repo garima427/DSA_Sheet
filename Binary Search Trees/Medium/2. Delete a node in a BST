@@ -1,0 +1,41 @@
+Node* deleteBST(Node* root, int key){
+    if(!root)
+        return NULL;
+
+    // Search for the node
+    if(key < root->data){
+        root->left = deleteBST(root->left, key);
+    }
+    else if(key > root->data){
+        root->right = deleteBST(root->right, key);
+    }
+    else{
+        // Case 1: No child
+        if(!root->left && !root->right){
+            delete root;
+            return NULL;
+        }
+
+        // Case 2: One child
+        if(!root->left){
+            Node* temp = root->right;
+            delete root;
+            return temp;
+        }
+
+        if(!root->right){
+            Node* temp = root->left;
+            delete root;
+            return temp;
+        }
+
+        // Case 3: Two children
+        int successor = findMin(root->right);
+
+        root->data = successor;
+
+        root->right = deleteBST(root->right, successor);
+    }
+
+    return root;
+}
