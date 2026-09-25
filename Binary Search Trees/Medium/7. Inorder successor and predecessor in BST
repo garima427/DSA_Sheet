@@ -1,0 +1,38 @@
+int predecessor(Node* root, int key){
+    int ans = -1;
+
+    while(root){
+        if(root->data < key){
+            ans = root->data;
+            root = root->right;
+        }
+        else{
+            root = root->left;
+        }
+    }
+
+    return ans;
+}
+
+int successor(Node* root, int key){
+    int ans = -1;
+
+    while(root){
+        if(root->data > key){
+            ans = root->data;
+            root = root->left;
+        }
+        else{
+            root = root->right;
+        }
+    }
+
+    return ans;
+}
+
+pair<int,int> predecessorSuccessor(Node* root, int key){
+    int pre = predecessor(root, key);
+    int suc = successor(root, key);
+
+    return {pre, suc};
+}
