@@ -1,0 +1,45 @@
+class BSTIterator{
+    stack<Node*> st;
+    bool reverse = true;
+    public:
+        // reverse = false = next() = l
+        // reverse = true = before() = r
+        BSTIterator(Node* root,bool isReverse){
+            reverse = isReverse;
+            pushAll(root);
+        }
+        int next(){
+            Node* temp = st.top();
+            st.pop();
+            if(!reverse) pushAll(temp->right);
+            if(reverse) pushAll(temp->left);
+            return temp->data;
+        }
+        bool hasNext(){
+            return !st.empty();
+        }
+    private:
+        void pushAll(Node* node){
+            while(node){
+                st.push(node);
+                if(!reverse) node = node->left;
+                if(reverse) node = node->right;
+            }
+        }
+}
+
+bool twoSum(Node* root, int target){
+    BSTIterator l(root,false);
+    BSTIterator r(root,true);
+    int i = l.next();
+    int j = r.next();
+    while(i<j){
+        if(i+j == target)
+            return true;
+        else if(i+j<target)
+            i = l.next();
+        else 
+            j = r.next();
+    }
+    return false;
+}
