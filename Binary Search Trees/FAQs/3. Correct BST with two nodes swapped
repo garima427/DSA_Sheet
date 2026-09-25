@@ -4,7 +4,7 @@ void inorder(Node* root, Node* &prev, Node* &first, Node* &last){
 
     inorder(root->left,prev,first,last);
 
-    if(root->data < prev->data){
+    if(prev && root->data < prev->data){
         if(!first){
             first = prev;
         }
