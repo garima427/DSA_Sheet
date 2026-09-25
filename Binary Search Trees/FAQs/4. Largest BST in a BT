@@ -1,0 +1,28 @@
+struct Info {
+    bool isBST;
+    int minVal;
+    int maxVal;
+    int size;
+
+
+};
+Info solve(Node* root, int &ans){
+    if(!root)
+        return {true,INT_MAX,INT_MIN,0};
+
+    Info l = solve(root->left,ans);
+    Info r = solve(root->right,ans);
+
+    if(l.isBST && r.isBST && root->data>l.maxVal && root->data<r.minVal){
+        int currSize = l.size + r.size +1;
+        ans = max(ans,currSize);
+        return {true,l.minVal,r.maxVal,currSize};
+    }
+
+    return {false,0,0,0};
+}
+int largestBST(Node* root){
+    int ans = 0;
+    solve(root,ans);
+    return ans;
+}
