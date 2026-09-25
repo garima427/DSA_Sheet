@@ -1,0 +1,23 @@
+class BSTIterator{
+    stack<Node*> st;
+    public:
+        BSTIterator(Node* root){
+            pushAll(root);
+        }
+        int next(){
+            Node* temp = st.top();
+            st.pop();
+            pushAll(temp->right);
+            return temp->data;
+        }
+        bool hasNext(){
+            return !st.empty();
+        }
+    private:
+        void pushAll(Node* node){
+            while(node){
+                st.push(node);
+                node = node->left;
+            }
+        }
+}
