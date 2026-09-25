@@ -1,0 +1,28 @@
+void inorder(Node* root, Node* &prev, Node* &first, Node* &last){
+    if(!root)
+        return;
+
+    inorder(root->left,prev,first,last);
+
+    if(root->data < prev->data){
+        if(!first){
+            first = prev;
+        }
+        else{
+            last = root;
+        }
+    }
+    prev = root;
+    inorder(root->right,prev,first,last);
+}
+void recoverTree(Node* root){
+    Node* first = nullptr;
+    Node* last = nullptr;
+    Node* prev = nullptr;
+    inorder(root,prev,first,last);
+    if(first && last){
+        int temp = first->data;
+        first->data = last->data;
+        last->data = temp;
+    }
+}
