@@ -1,0 +1,17 @@
+Node* helper(vector<int> &preorder, int &idx, int &high){
+    if(idx==preorder.size() || preorder[idx]>high)
+        return NULL;
+    
+    Node* root = new Node(preorder[idx]);
+    idx++;
+
+    root->left = helper(preorder,idx,root->data);
+    root->right = helper(preorder,idx,high);
+
+    return root;
+}
+Node* constructBST(vector<int>& preorder){
+    int idx = 0;
+    int high = INT_MAX;
+    return helper(preorder,idx,high);
+}
