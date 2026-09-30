@@ -1,0 +1,28 @@
+void solve(int n,int &open, int &close, string &curr, vector<string> &ans){
+    if(open==n && close==n){
+        ans.push_back(curr);
+        return;
+    }
+    if(open<n){
+        curr.push_back('(');
+        open++;
+        solve(n,open,close,curr,ans);
+        open--;
+        curr.pop_back();
+    }
+    if(close<open){
+        curr.push_back(')');
+        close++;
+        solve(n,open,close,curr,ans);
+        close--;
+        curr.pop_back();
+    }
+    
+}
+vector<string> generateParenthesis(int n){
+    int open = 0, close = 0;
+    vector<string> ans;
+    string curr = "";
+    solve(n,open,close,curr,ans);
+    return ans;
+}
