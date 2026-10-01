@@ -1,0 +1,22 @@
+long long modExp(int base, long long exp){
+    long long result = 1;
+    long long MOD = 1e9+7;
+    while(exp>0){
+        if(exp%2==1){
+            result = (result * base)%MOD;
+        }
+        base = (base * base) % MOD;
+        exp/=2;
+    }
+    return result;
+}
+long long goodNumbers(int n){
+    long long MOD = 1e9+7;
+    long long evenPos = (n+1)/2;
+    long long oddPos = n/2;
+
+    long long evenRes = modExp(5,evenPos);
+    long long oddRes = modExp(4,oddPos);
+
+    return (evenRes*oddRes)%MOD;
+}
