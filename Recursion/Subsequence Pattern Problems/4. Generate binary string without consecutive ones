@@ -1,0 +1,22 @@
+void helper(int idx, int prev, string curr, int n,vector<string> &ans){
+    if(idx == n){
+        ans.push_back(curr);
+        return;
+    }
+    //zero 
+    curr.push_back('0');
+    helper(idx+1,0,curr,n,ans);
+    curr.pop_back();
+
+    //one
+    if(prev!=1){
+        curr.push_back('1');
+        helper(idx+1,1,curr,n,ans);
+        curr.pop_back();
+    }
+}
+vector<string> generateBinaryStrings(int N){
+    vector<string> ans;
+    helper(0,-1,"",N,ans);
+    return ans;
+}
