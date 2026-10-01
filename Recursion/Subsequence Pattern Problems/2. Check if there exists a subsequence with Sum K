@@ -1,0 +1,16 @@
+bool solve(int idx, int sum, vector<int> &nums, int K){
+    if(sum==K)
+        return true;
+    
+    if(idx==nums.size())
+        return false;
+
+    bool take = solve(idx+1,sum+nums[idx],nums,K);
+    bool notTake = solve(idx+1,sum,nums,K);
+
+    return take || notTake;
+}
+
+bool checkSubsequenceSum(vector<int>& nums, int K){
+    return solve(0,0,nums,K);
+}
