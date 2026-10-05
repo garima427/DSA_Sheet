@@ -1,0 +1,26 @@
+void solve(int idx, int sum, int target, vector<int>& candidates, vector<int>& curr,vector<vector<int>>& ans){
+    if(sum>target){
+        return;
+    }
+    if(sum==target){
+        ans.push_back(curr);
+        return;
+    }
+    if(idx==candidates.size()){
+        return;
+    }
+
+    //take
+    curr.push_back(candidates[idx]);
+    solve(idx,sum+candidates[idx],target,candidates,curr,ans);
+    curr.pop_back();
+
+    //don't take
+    solve(idx+1,sum,target,candidates,curr,ans);
+}
+vector<vector<int>> combinationSum(vector<int>& candidates, int target){
+    vector<vector<int>> ans;
+    vector<int> curr;
+    solve(0,0,target,candidates,curr,ans);
+    return ans;
+}
