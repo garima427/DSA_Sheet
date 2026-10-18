@@ -1,0 +1,38 @@
+bool checkInclusion(string s1, string s2) {
+    int k = s1.size(), n = s2.size();
+
+    if(k > n)
+        return false;
+
+    int need[26] = {0}, window[26] = {0};
+
+    for(char ch : s1)
+        need[ch - 'a']++;
+
+    int l = 0;
+
+    for(int r = 0; r < n; r++) {
+        window[s2[r] - 'a']++;
+
+        if(r - l + 1 > k) {
+            window[s2[l] - 'a']--;
+            l++;
+        }
+
+        if(r - l + 1 == k) {
+            bool match = true;
+
+            for(int i = 0; i < 26; i++) {
+                if(need[i] != window[i]) {
+                    match = false;
+                    break;
+                }
+            }
+
+            if(match)
+                return true;
+        }
+    }
+
+    return false;
+}
