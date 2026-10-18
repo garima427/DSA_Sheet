@@ -1,0 +1,28 @@
+vector<vector<string>> groupAnagrams(vector<string>& strs) {
+    unordered_map<string, vector<string>> mp;
+
+    for(string str : strs) {
+        // 1. Build freq[26]
+        int freq[26]={0};
+        for(char ch : str){
+            freq[ch-'a']++;
+        }
+        // 2. Convert freq into a string key
+
+        string strKey = "";
+        for(int i=0; i<26; i++){
+            strKey+= to_string(freq[i])+"#";
+        }
+        
+        // 3. Add str to mp[key]
+        mp[strKey].push_back(str);
+    }
+
+    vector<vector<string>> ans;
+
+    for(auto it:mp){
+        ans.push_back(it.second);
+    }
+
+    return ans;
+}
